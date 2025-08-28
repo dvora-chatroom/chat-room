@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build:production": "nx build chat-api && nx build chat-ui",
+    "build:production": "npx nx build chat-api && npx nx build chat-ui",
     "start": "node dist/apps/chat-api/main.js"
   },
   "private": true,
