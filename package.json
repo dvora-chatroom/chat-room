@@ -7,27 +7,6 @@
     "start": "node dist/apps/chat-api/main.js"
   },
   "private": true,
-  "overrides": {
-    "path-to-regexp": "^8.2.0",
-    "express": {
-      "path-to-regexp": "^8.2.0"
-    },
-    "webpack-dev-server": {
-      "express": {
-        "path-to-regexp": "^8.2.0"
-      }
-    },
-    "@nx/module-federation": {
-      "express": {
-        "path-to-regexp": "^8.2.0"
-      }
-    },
-    "@nx/rspack": {
-      "express": {
-        "path-to-regexp": "^8.2.0"
-      }
-    }
-  },
   "dependencies": {
     "@angular/common": "~20.1.0",
     "@angular/compiler": "~20.1.0",
