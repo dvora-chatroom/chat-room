@@ -155,6 +155,21 @@ npx nx generate @nx/js:library my-library
 | `OPENAI_API_KEY` | Your OpenAI API key | Yes |
 | `PORT` | Server port (default: 3001) | No |
 
+## Deployment
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions on deploying to Render.
+
+### Quick Deploy to Render
+
+1. Fork this repository
+2. Create a Render account
+3. Connect your GitHub repository
+4. Set environment variables:
+   - `NODE_ENV=production`
+   - `OPENAI_API_KEY=your_api_key`
+5. Deploy with build command: `npm run build:production`
+6. Start command: `npm start`
+
 ## Contributing
 
 1. Fork the repository

@@ -3,6 +3,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import { PoetBot } from '@chat-room/bot';
 import { 
   User, 
@@ -24,7 +25,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:4200",
+    origin: process.env.NODE_ENV === 'production' ? false : "http://localhost:4200",
     methods: ["GET", "POST"]
   }
 });
@@ -32,6 +33,8 @@ const io = new Server(httpServer, {
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+
 
 // Configuration
 const port = process.env.PORT ? Number(process.env.PORT) : 3001;
@@ -163,6 +166,17 @@ app.get('/health', (req, res) => {
     totalMessages: messages.length
   });
 });
+
+// Serve static files from the built UI in production
+if (process.env.NODE_ENV === 'production') {
+  const uiPath = path.join(__dirname, '../../chat-ui/dist/apps/chat-ui');
+  app.use(express.static(uiPath));
+  
+  // Serve index.html for all routes (SPA routing)
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(uiPath, 'index.html'));
+  });
+}
 
 httpServer.listen(port, host, () => {
   console.log(`🚀 Chat API server running at http://${host}:${port}`);

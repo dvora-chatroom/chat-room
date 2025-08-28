@@ -2,7 +2,10 @@
   "name": "@chat-room/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build:production": "nx build chat-api && nx build chat-ui",
+    "start": "node dist/apps/chat-api/main.js"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~20.1.0",

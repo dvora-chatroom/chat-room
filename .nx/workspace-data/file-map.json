@@ -23,52 +23,60 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": ".editorconfig",
-        "hash": "5443105041930014821"
-      },
-      {
         "file": ".gitignore",
         "hash": "11055957080320544055"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "5407418692668764289"
-      },
-      {
-        "file": ".prettierrc",
-        "hash": "16267754514737964994"
-      },
-      {
-        "file": "PERFORMANCE_OPTIMIZATIONS.md",
-        "hash": "13684395689750388396"
-      },
-      {
-        "file": "README.md",
-        "hash": "10786674711227241000"
-      },
-      {
-        "file": "er.name",
-        "hash": "13859069990595111208"
-      },
-      {
-        "file": "eslint.config.mjs",
-        "hash": "10770449096712831357"
-      },
-      {
-        "file": "nx.json",
-        "hash": "4576025763445485990"
       },
       {
         "file": "package-lock.json",
         "hash": "7826825769591452211"
       },
       {
+        "file": "DEPLOYMENT.md",
+        "hash": "3282694446170572035"
+      },
+      {
         "file": "package.json",
-        "hash": "9581312812494182880"
+        "hash": "9680365037943935858"
+      },
+      {
+        "file": "render.yaml",
+        "hash": "17113129159945214147"
+      },
+      {
+        "file": "nx.json",
+        "hash": "4576025763445485990"
+      },
+      {
+        "file": "README.md",
+        "hash": "16658726046330419701"
+      },
+      {
+        "file": "PERFORMANCE_OPTIMIZATIONS.md",
+        "hash": "13684395689750388396"
+      },
+      {
+        "file": "er.name",
+        "hash": "13859069990595111208"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "5407418692668764289"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "5443105041930014821"
       },
       {
         "file": "tsconfig.base.json",
         "hash": "11465945522690014752"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": "eslint.config.mjs",
+        "hash": "10770449096712831357"
       }
     ],
     "projectFileMap": {
@@ -87,7 +95,7 @@
         },
         {
           "file": "apps/chat-api/src/main.ts",
-          "hash": "3228223765881038827",
+          "hash": "5980906887624929233",
           "deps": [
             "npm:express",
             "npm:socket.io",
