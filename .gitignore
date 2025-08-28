@@ -109,7 +109,7 @@ public
 .pnp.*
 
 # Nx
-.nx/cache
+.nx/
 
 # Angular
 .angular/
