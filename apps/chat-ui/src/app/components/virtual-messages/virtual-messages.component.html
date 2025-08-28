@@ -1,0 +1,13 @@
+<div 
+  class="virtual-messages-container" 
+  #scrollContainer
+  (scroll)="onScroll()"
+>
+  <div class="messages-list">
+    <app-message-item
+      *ngFor="let message of visibleMessages; trackBy: trackByMessage"
+      [message]="message"
+      [isOwnMessage]="message.user === currentUserName"
+    ></app-message-item>
+  </div>
+</div>

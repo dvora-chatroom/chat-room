@@ -1,0 +1,105 @@
+<div class="chat-container">
+  <!-- Login Screen -->
+  <div *ngIf="!currentUser" class="login-screen">
+    <div class="login-card">
+      <h1>Welcome to Chat Room</h1>
+      <p>Enter your name to start chatting</p>
+      <div class="login-form">
+        <input 
+          type="text" 
+          [(ngModel)]="userName" 
+          placeholder="Enter your name"
+          (keyup.enter)="joinChat()"
+          class="name-input"
+        >
+        <button (click)="joinChat()" class="join-btn">Join Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Room -->
+  <div *ngIf="currentUser" class="chat-room">
+    <!-- Header -->
+    <div class="chat-header">
+      <h2>Chat Room</h2>
+      <div class="user-info">
+        <span class="user-name">{{ currentUser.name }}</span>
+        <div class="connection-status" [class.connected]="isConnected">
+          <span class="status-dot"></span>
+          {{ isConnected ? 'Connected' : 'Disconnected' }}
+        </div>
+        <button (click)="leaveChat()" class="leave-btn">Leave</button>
+      </div>
+    </div>
+
+    <div class="chat-content">
+      <!-- Users List -->
+      <div class="users-panel">
+        <h3>Online Users ({{ users.length }})</h3>
+        <div class="users-list">
+          <div 
+            *ngFor="let user of users; trackBy: trackByUser" 
+            class="user-item"
+            [class.current-user]="user.socketId === currentUser.socketId"
+          >
+            <span class="user-dot"></span>
+            {{ user.name }}
+            <span *ngIf="user.socketId === currentUser.socketId" class="you-label">(You)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages Area -->
+      <div class="messages-panel">
+        <!-- Virtual Scrolling for Messages -->
+        <div class="messages-container">
+          <app-virtual-messages
+            [messages]="messages"
+            [currentUserName]="currentUser.name"
+            [itemHeight]="80"
+            [bufferSize]="5"
+            (scrollToBottom)="onScrollToBottom()"
+            #virtualMessages
+          ></app-virtual-messages>
+        </div>
+
+        <!-- Typing Indicators -->
+        <div *ngIf="typingUsers.length > 0" class="typing-indicators">
+          <span *ngFor="let typingUser of typingUsers; trackBy: trackByTypingUser" class="typing-user">
+            {{ typingUser.user }} is typing...
+          </span>
+        </div>
+
+        <!-- Message Input -->
+        <div class="message-input-container">
+          <input 
+            type="text" 
+            [(ngModel)]="newMessage" 
+            placeholder="Type your message..."
+            (keyup.enter)="sendMessage()"
+            (input)="onTyping()"
+            class="message-input"
+          >
+          <button (click)="sendMessage()" class="send-btn">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Monitor (Development Only) -->
+    <div *ngIf="showPerformanceMonitor" class="performance-monitor">
+      <h4>Performance Metrics</h4>
+      <div class="metric">
+        <span>Memory:</span>
+        <span>{{ (performanceMetrics.memoryUsage || 0).toFixed(1) }}%</span>
+      </div>
+      <div class="metric">
+        <span>Messages:</span>
+        <span>{{ performanceMetrics.messageCount }}</span>
+      </div>
+      <div class="metric">
+        <span>Users:</span>
+        <span>{{ performanceMetrics.userCount }}</span>
+      </div>
+    </div>
+  </div>
+</div>

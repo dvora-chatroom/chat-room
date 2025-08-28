@@ -1,0 +1,19 @@
+.virtual-messages-container {
+  height: 100%;
+  overflow-y: auto; // Only vertical scroll when needed
+  overflow-x: hidden; // Never show horizontal scroll
+  position: relative;
+  flex: 1; // Take up remaining space
+  min-height: 0; // Important for flex child
+  display: flex; // Add flex display
+  flex-direction: column; // Stack vertically
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  // Remove flex: 1 so the list can grow beyond container height
+  min-height: 0; // Don't force minimum height
+  overflow-x: hidden; // Prevent horizontal overflow
+}
