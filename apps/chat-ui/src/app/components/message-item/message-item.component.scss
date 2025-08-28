@@ -14,35 +14,6 @@
   }
 }
 
-// Special styling for code blocks in own messages
-.own-message .message-content {
-  .text-content {
-    .inline-code {
-      background: rgba(255, 255, 255, 0.2);
-      color: rgba(255, 255, 255, 0.9);
-    }
-  }
-
-  .code-block {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-
-    .code-header {
-      background: rgba(255, 255, 255, 0.15);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-
-      .language-label {
-        color: rgba(255, 255, 255, 0.8);
-      }
-    }
-
-    .code-content {
-      background: rgba(255, 255, 255, 0.05);
-      color: rgba(255, 255, 255, 0.9);
-    }
-  }
-}
-
 .message-header {
   display: flex;
   justify-content: space-between;
@@ -75,50 +46,19 @@
       font-size: 0.875em;
       color: #e83e8c;
     }
+
+
   }
+}
 
-  .code-block {
-    // margin: 0.5rem 0;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-
-    .code-header {
-      background: #e9ecef;
-      // padding: 0.5rem 1rem;
-      border-bottom: 1px solid #dee2e6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .language-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #495057;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
+// Special styling for code blocks in own messages
+.own-message .message-content {
+  .text-content {
+    .inline-code {
+      background: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.9);
     }
 
-    .code-content {
-      margin: 0;
-      padding: 1rem;
-      background: #f8f9fa;
-      overflow-x: auto;
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-      font-size: 0.875rem;
-      line-height: 1.5;
-      color: #212529;
 
-      code {
-        background: none;
-        padding: 0;
-        border: none;
-        font-family: inherit;
-        font-size: inherit;
-        color: inherit;
-      }
-    }
   }
 }
