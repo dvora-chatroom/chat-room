@@ -2,11 +2,29 @@
   "name": "@chat-room/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "build:production": "npx nx build chat-api && npx nx build chat-ui",
-    "start": "node dist/apps/chat-api/main.js"
-  },
+  "scripts": {},
   "private": true,
+  "overrides": {
+    "path-to-regexp": "^8.2.0",
+    "express": {
+      "path-to-regexp": "^8.2.0"
+    },
+    "webpack-dev-server": {
+      "express": {
+        "path-to-regexp": "^8.2.0"
+      }
+    },
+    "@nx/module-federation": {
+      "express": {
+        "path-to-regexp": "^8.2.0"
+      }
+    },
+    "@nx/rspack": {
+      "express": {
+        "path-to-regexp": "^8.2.0"
+      }
+    }
+  },
   "dependencies": {
     "@angular/common": "~20.1.0",
     "@angular/compiler": "~20.1.0",
