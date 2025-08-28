@@ -3,7 +3,6 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import path from 'path';
 import { PoetBot } from '@chat-room/bot';
 import { 
   User, 
@@ -33,8 +32,6 @@ const io = new Server(httpServer, {
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-
 
 // Configuration
 const port = process.env.PORT ? Number(process.env.PORT) : 3001;
@@ -169,11 +166,18 @@ app.get('/health', (req, res) => {
 
 // Serve static files from the built UI in production
 if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
   const uiPath = path.join(__dirname, '../../chat-ui/dist/apps/chat-ui');
+  
+  // Serve static files
   app.use(express.static(uiPath));
   
-  // Serve index.html for all routes (SPA routing)
+  // Serve index.html for all non-API routes (SPA routing)
   app.get('*', (req, res) => {
+    // Skip API routes
+    if (req.path.startsWith('/api/') || req.path === '/health') {
+      return res.status(404).json({ error: 'Not found' });
+    }
     res.sendFile(path.join(uiPath, 'index.html'));
   });
 }

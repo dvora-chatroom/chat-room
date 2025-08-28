@@ -1,174 +1,199 @@
 # Chat Room Application
 
-A real-time chat application built with Angular 19, Node.js, WebSocket, and OpenAI integration.
+A real-time chat room application built with Angular 19, Node.js, Express, WebSocket (Socket.IO), and Firebase.
 
 ## Features
 
-- **Real-time Chat**: WebSocket-based messaging with Socket.IO
-- **AI Assistant**: PoetBot powered by OpenAI GPT-4o-mini
-- **Code Highlighting**: Automatic syntax highlighting for code blocks
-- **User Management**: Real-time user presence and typing indicators
-- **Responsive Design**: Modern UI with mobile support
-- **Performance Optimized**: Virtual scrolling, change detection optimization
-
-## Tech Stack
-
-### Frontend
-- **Angular 19** - Modern Angular with standalone components
-- **TypeScript** - Type-safe development
-- **Socket.IO Client** - Real-time communication
-- **RxJS** - Reactive programming
-- **SCSS** - Advanced styling with CSS preprocessor
-
-### Backend
-- **Node.js** - Server runtime
-- **Express** - Web framework
-- **Socket.IO** - Real-time WebSocket communication
-- **OpenAI API** - AI-powered responses
-- **TypeScript** - Type-safe server development
-
-### Architecture
-- **Nx Monorepo** - Scalable monorepo architecture
-- **Shared Libraries** - Reusable code across apps
-- **WebSocket** - Real-time bidirectional communication
+- 🚀 Real-time messaging with WebSocket
+- 👥 Live user list with online/offline status
+- ⌨️ Typing indicators
+- 📱 Responsive design
+- 🔥 Firebase integration for message persistence
+- 🎨 Modern UI with beautiful gradients
+- ⚡ Fast and lightweight
 
 ## Project Structure
 
 ```
 chat-room/
 ├── apps/
-│   ├── chat-api/          # Node.js Express server
-│   └── chat-ui/           # Angular 19 frontend
-├── libs/
-│   ├── bot/              # OpenAI bot logic
-│   └── shared/           # Shared types and utilities
-├── .env                  # Environment variables
-└── README.md            # This file
+│   ├── chat-ui/          # Angular 19 frontend
+│   │   ├── src/
+│   │   │   ├── app/
+│   │   │   │   ├── components/
+│   │   │   │   │   └── chat.component.ts
+│   │   │   │   ├── services/
+│   │   │   │   │   ├── chat.service.ts
+│   │   │   │   │   └── firebase.service.ts
+│   │   │   │   └── firebase.config.ts
+│   │   │   └── ...
+│   │   └── ...
+│   └── chat-api/         # Node.js Express backend
+│       ├── src/
+│       │   └── main.ts
+│       └── ...
+└── ...
 ```
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
-
-- Node.js 18+ 
+- Node.js (v18 or higher)
 - npm or yarn
-- OpenAI API key
+- Firebase project (for message persistence)
 
-### Installation
+## Setup Instructions
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd chat-room
-   ```
+### 1. Install Dependencies
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-3. **Environment Setup**
-   Create a `.env` file in the root directory:
-   ```env
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
+### 2. Firebase Configuration
 
-4. **Start the development servers**
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Enable Firestore Database
+3. Update the Firebase configuration in `apps/chat-ui/src/app/firebase.config.ts`:
 
-   **Terminal 1 - Backend:**
+```typescript
+const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-project.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "your-app-id"
+};
+```
+
+### 3. Environment Variables (Optional)
+
+Create a `.env` file in the root directory:
+
+```env
+HOST=localhost
+PORT=3001
+```
+
+## Running the Application
+
+### Development Mode
+
+1. **Start the API server:**
    ```bash
    npx nx serve chat-api
    ```
+   The server will run on `http://localhost:3001`
 
-   **Terminal 2 - Frontend:**
+2. **Start the Angular application:**
    ```bash
    npx nx serve chat-ui
    ```
+   The application will run on `http://localhost:4200`
 
-5. **Open your browser**
-   - Frontend: http://localhost:4200
-   - Backend API: http://localhost:3001
+### Production Build
+
+1. **Build the API:**
+   ```bash
+   npx nx build chat-api
+   ```
+
+2. **Build the UI:**
+   ```bash
+   npx nx build chat-ui
+   ```
 
 ## Usage
 
-1. **Join Chat**: Enter your name and click "Join Chat"
-2. **Send Messages**: Type your message and press Enter or click Send
-3. **AI Assistant**: Ask technical questions and PoetBot will respond in rhyme
-4. **Code Blocks**: Messages with code will be automatically highlighted
-
-## Development
-
-### Available Commands
-
-```bash
-# Build applications
-npx nx build chat-api
-npx nx build chat-ui
-
-# Run tests
-npx nx test chat-api
-npx nx test chat-ui
-
-# Lint code
-npx nx lint chat-api
-npx nx lint chat-ui
-
-# Generate new components
-npx nx generate @nx/angular:component my-component --project=chat-ui
-
-# Generate new libraries
-npx nx generate @nx/js:library my-library
-```
-
-### Code Structure
-
-- **Components**: Located in `apps/chat-ui/src/app/components/`
-- **Services**: Located in `apps/chat-ui/src/app/services/`
-- **Pipes**: Located in `apps/chat-ui/src/app/pipes/`
-- **Server Logic**: Located in `apps/chat-api/src/`
-- **Shared Code**: Located in `libs/`
+1. Open your browser and navigate to `http://localhost:4200`
+2. Enter your name in the login screen
+3. Start chatting with other users in real-time!
 
 ## Features in Detail
 
-### PoetBot AI Assistant
-- **Two-step Process**: Classification + Answer generation
-- **Poetic Responses**: All answers in rhyme format
-- **Tech Focus**: Specialized in web development questions
-- **Cooldown System**: Prevents spam with 10-second cooldown
+### Real-time Messaging
+- Instant message delivery using WebSocket
+- Message history persistence in Firebase
+- Automatic message cleanup (keeps last 1000 messages)
 
-### Real-time Features
-- **Live Messaging**: Instant message delivery
-- **User Presence**: See who's online
-- **Typing Indicators**: Know when someone is typing
-- **Auto-scroll**: Automatically scrolls to new messages
+### User Management
+- Live user list showing online users
+- User join/leave notifications
+- Typing indicators
+- No authentication required - just enter your name
 
-### Code Display
-- **Syntax Highlighting**: Automatic language detection
-- **Inline Code**: Single backtick support
-- **Code Blocks**: Triple backtick support
-- **Responsive**: Horizontal scrolling for long code
+### UI/UX
+- Modern gradient design
+- Responsive layout for mobile and desktop
+- Message bubbles with timestamps
+- Smooth animations and transitions
+- Auto-scroll to latest messages
 
-## Environment Variables
+## API Endpoints
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `OPENAI_API_KEY` | Your OpenAI API key | Yes |
-| `PORT` | Server port (default: 3001) | No |
+- `GET /health` - Health check
+- `GET /api/users` - Get connected users
+- `GET /api/messages` - Get message history
+
+## WebSocket Events
+
+### Client to Server
+- `join` - Join chat with username
+- `message` - Send a message
+- `typing` - Send typing indicator
+
+### Server to Client
+- `users` - Updated users list
+- `newMessage` - New message received
+- `messages` - All messages (when joining)
+- `userJoined` - User joined notification
+- `userLeft` - User left notification
+- `userTyping` - Typing indicator
+
+## Technologies Used
+
+- **Frontend:** Angular 19, TypeScript, SCSS
+- **Backend:** Node.js, Express, Socket.IO
+- **Database:** Firebase Firestore
+- **Build Tool:** Nx
+- **Real-time:** WebSocket (Socket.IO)
+
+## Development
+
+### Adding New Features
+
+1. **Backend:** Add new Socket.IO events in `apps/chat-api/src/main.ts`
+2. **Frontend:** Update the chat service and component accordingly
+
+### Styling
+
+The application uses SCSS with a modern design system. Main styles are in the chat component.
+
+### Testing
+
+```bash
+# Run tests for the API
+npx nx test chat-api
+
+# Run tests for the UI
+npx nx test chat-ui
+```
 
 ## Deployment
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions on deploying to Render.
+### Backend Deployment
+The Express server can be deployed to:
+- Heroku
+- Vercel
+- Railway
+- DigitalOcean App Platform
 
-### Quick Deploy to Render
-
-1. Fork this repository
-2. Create a Render account
-3. Connect your GitHub repository
-4. Set environment variables:
-   - `NODE_ENV=production`
-   - `OPENAI_API_KEY=your_api_key`
-5. Deploy with build command: `npm run build:production`
-6. Start command: `npm start`
+### Frontend Deployment
+The Angular app can be deployed to:
+- Firebase Hosting
+- Vercel
+- Netlify
+- GitHub Pages
 
 ## Contributing
 
@@ -180,8 +205,8 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions on deploying to R
 
 ## License
 
-This project is licensed under the MIT License.
+MIT License - feel free to use this project for your own applications!
 
 ## Support
 
-For questions or issues, please open an issue on GitHub.
+If you encounter any issues or have questions, please open an issue on GitHub.
