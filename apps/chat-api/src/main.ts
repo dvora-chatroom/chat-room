@@ -35,7 +35,7 @@ app.use(express.json());
 
 // Configuration
 const port = process.env.PORT ? Number(process.env.PORT) : 3001;
-const host = 'localhost';
+const host = '0.0.0.0';
 
 // Initialize PoetBot
 const poetBot = new PoetBot({
@@ -49,6 +49,9 @@ const poetBot = new PoetBot({
 const connectedUsers = new Map<string, User>();
 const messages: Array<ChatMessage> = [];
 
+/**
+ * Emits the current users list including PoetBot to all connected clients.
+ */
 function emitUsersWithPoetBot() {
   const list = Array.from(connectedUsers.values());
   // Add PoetBot as dormant user to the list
@@ -167,7 +170,7 @@ app.get('/health', (req, res) => {
 // Serve static files from the built UI in production
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
-  const uiPath = path.join(__dirname, '../../chat-ui/dist/apps/chat-ui');
+  const uiPath = path.join(__dirname, '../../chat-ui/src');
   
   // Serve static files
   app.use(express.static(uiPath));
