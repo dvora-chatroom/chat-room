@@ -170,7 +170,7 @@ app.get('/health', (req, res) => {
 // Serve static files from the built UI in production
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
-  const uiPath = path.join(__dirname, '../../chat-ui/src');
+  const uiPath = path.join(__dirname, '../../chat-ui/dist/apps/chat-ui');
   
   // Serve static files
   app.use(express.static(uiPath));
