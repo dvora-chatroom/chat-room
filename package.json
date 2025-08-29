@@ -4,7 +4,13 @@
   "license": "MIT",
   "scripts": {
     "build:production": "npx nx build chat-api && npx nx build chat-ui",
-    "start": "node dist/apps/chat-api/main.js"
+    "start": "node dist/apps/chat-api/main.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:shared": "jest tests/shared",
+    "test:server": "jest tests/server",
+    "test:client": "jest tests/client"
   },
   "private": true,
   "resolutions": {
@@ -57,8 +63,11 @@
     "esbuild": "^0.25.9",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.7.0",
     "nx": "21.4.1",
     "prettier": "^2.6.2",
+    "ts-jest": "^29.1.1",
     "tslib": "^2.3.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.29.0"

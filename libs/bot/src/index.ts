@@ -1,1 +1,1 @@
-export * from './lib/bot';
+export * from './lib/poet-bot';
