@@ -10,10 +10,13 @@
 }
 
 .messages-list {
+  position: relative;
+  padding: 1rem;
+}
+
+.messages-content {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  // Remove flex: 1 so the list can grow beyond container height
-  min-height: 0; // Don't force minimum height
-  overflow-x: hidden; // Prevent horizontal overflow
+  gap: 0.5rem;
 }

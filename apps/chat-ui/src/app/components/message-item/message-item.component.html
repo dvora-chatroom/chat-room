@@ -1,4 +1,4 @@
-<div class="message" [class.own-message]="isOwnMessage">
+<div class="message" [class.own-message]="isOwnMessage" [class.bot-message]="message.user === POETBOT_NAME">
   <div class="message-header">
     <span class="message-user">{{ message.user }}</span>
     <span class="message-time">{{ message.timestamp | date:'shortTime' }}</span>

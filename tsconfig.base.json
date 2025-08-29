@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@chat-room/shared": ["libs/shared/src/index.ts"],
-      "@chat-room/chat": ["libs/chat/src/index.ts"],
       "@chat-room/bot": ["libs/bot/src/index.ts"]
     }
   },

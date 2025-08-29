@@ -31,17 +31,22 @@ export class VirtualMessagesComponent implements AfterViewInit, OnDestroy, OnCha
 
   ngAfterViewInit(): void {
     this.setupScrollDebounce();
-    this.updateVisibleMessages();
+    
+    // Use a small delay to ensure the container is properly rendered
+    setTimeout(() => {
+      this.updateVisibleMessages();
+    }, 100);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['messages']) {
-      // Always show all messages for now to avoid virtual scrolling issues
-      this.visibleMessages = [...this.messages];
       this.totalHeight = this.messages.length * this.itemHeight;
       
       // Auto-scroll to bottom for new messages
       if (changes['messages'].currentValue.length > (changes['messages'].previousValue?.length || 0)) {
+        // Update visible messages first
+        this.updateVisibleMessages();
+        
         // Use multiple timeouts to ensure DOM is updated
         setTimeout(() => {
           this.scrollToBottomManually();
@@ -51,6 +56,9 @@ export class VirtualMessagesComponent implements AfterViewInit, OnDestroy, OnCha
         setTimeout(() => {
           this.scrollToBottomManually();
         }, 200);
+      } else {
+        // Update visible messages for other changes
+        this.updateVisibleMessages();
       }
     }
   }
@@ -83,9 +91,13 @@ export class VirtualMessagesComponent implements AfterViewInit, OnDestroy, OnCha
       return;
     }
 
-    // For now, show all messages to avoid virtual scrolling issues
+    // For now, show all messages to ensure they appear
+    // Virtual scrolling can be re-enabled later when needed
     this.visibleMessages = [...this.messages];
     this.totalHeight = this.messages.length * this.itemHeight;
+    this.offsetY = 0;
+    
+    console.log(`Messages: ${this.visibleMessages.length} visible out of ${this.messages.length} total`);
   }
 
   trackByMessage(index: number, message: ChatMessage): string {

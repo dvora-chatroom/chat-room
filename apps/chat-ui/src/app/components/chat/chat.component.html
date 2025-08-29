@@ -85,21 +85,6 @@
       </div>
     </div>
 
-    <!-- Performance Monitor (Development Only) -->
-    <div *ngIf="showPerformanceMonitor" class="performance-monitor">
-      <h4>Performance Metrics</h4>
-      <div class="metric">
-        <span>Memory:</span>
-        <span>{{ (performanceMetrics.memoryUsage || 0).toFixed(1) }}%</span>
-      </div>
-      <div class="metric">
-        <span>Messages:</span>
-        <span>{{ performanceMetrics.messageCount }}</span>
-      </div>
-      <div class="metric">
-        <span>Users:</span>
-        <span>{{ performanceMetrics.userCount }}</span>
-      </div>
-    </div>
+
   </div>
 </div>

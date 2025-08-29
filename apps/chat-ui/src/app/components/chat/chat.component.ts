@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
 import { User, ChatMessage, TypingUser } from '@chat-room/shared';
-import { PerformanceService } from '../../services/performance.service';
+
 import { VirtualMessagesComponent } from '../virtual-messages/virtual-messages.component';
 import { Subscription, takeUntil, Subject } from 'rxjs';
 
@@ -25,8 +25,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   userName: string = '';
   newMessage: string = '';
   isConnected: boolean = false;
-  performanceMetrics: any = {};
-  showPerformanceMonitor: boolean = false; // Set to true for development
   
   private typingTimeout: any;
   private destroy$ = new Subject<void>();
@@ -34,21 +32,10 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(
     private chatService: ChatService,
-    private performanceService: PerformanceService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    // Start performance monitoring
-    this.performanceService.startMonitoring();
-
-    // Subscribe to performance metrics
-    this.performanceService.metrics$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(metrics => {
-        this.performanceMetrics = metrics;
-        this.cdr.markForCheck();
-      });
 
     // Use takeUntil for automatic unsubscription
     this.chatService.currentUser$
@@ -62,15 +49,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       .pipe(takeUntil(this.destroy$))
       .subscribe(users => {
         this.users = users;
-        this.performanceService.updateUserCount(users.length);
         this.cdr.markForCheck();
       });
 
-    this.chatService.messages$
+        this.chatService.messages$
       .pipe(takeUntil(this.destroy$))
       .subscribe(messages => {
         this.messages = messages;
-        this.performanceService.updateMessageCount(messages.length);
         this.cdr.markForCheck();
         
         // Auto-scroll to bottom when new messages arrive
@@ -88,7 +73,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       .pipe(takeUntil(this.destroy$))
       .subscribe(status => {
         this.isConnected = status;
-        this.performanceService.updateConnectionStatus(status);
         this.cdr.markForCheck();
       });
   }
@@ -107,8 +91,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.typingTimeout) {
       clearTimeout(this.typingTimeout);
     }
-
-    this.performanceService.stopMonitoring();
   }
 
   // TrackBy functions for optimal change detection

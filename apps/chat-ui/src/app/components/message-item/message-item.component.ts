@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatMessage } from '@chat-room/shared';
+import { ChatMessage, POETBOT_NAME } from '@chat-room/shared';
 import { FormatMessagePipe } from '../../pipes/format-message.pipe';
 
 @Component({
@@ -14,4 +14,6 @@ import { FormatMessagePipe } from '../../pipes/format-message.pipe';
 export class MessageItemComponent {
   @Input() message!: ChatMessage;
   @Input() isOwnMessage: boolean = false;
+  
+  readonly POETBOT_NAME = POETBOT_NAME;
 }

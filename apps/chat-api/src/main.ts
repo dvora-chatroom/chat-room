@@ -42,7 +42,7 @@ const poetBot = new PoetBot({
   openaiApiKey: process.env.OPENAI_API_KEY || '',
   botName: POETBOT_NAME,
   botId: POETBOT_ID,
-  cooldownMs: 10000
+  cooldownMs: 2000
 });
 
 // In-memory storage
@@ -50,20 +50,24 @@ const connectedUsers = new Map<string, User>();
 const messages: Array<ChatMessage> = [];
 
 /**
+ * Returns the current users list including PoetBot.
+ */
+function getUsersWithPoetBot() {
+  const list = Array.from(connectedUsers.values());
+  list.push({ name: poetBot.botName, socketId: poetBot.botId });
+  return list;
+}
+
+/**
  * Emits the current users list including PoetBot to all connected clients.
  */
 function emitUsersWithPoetBot() {
-  const list = Array.from(connectedUsers.values());
-  // Add PoetBot as dormant user to the list
-  list.push({ name: poetBot.botName, socketId: poetBot.botId });
-  io.emit(ChatEvents.Users, list);
+  io.emit(ChatEvents.Users, getUsersWithPoetBot());
 }
 
 // REST API endpoints
 app.get('/api/users', (req, res) => {
-  const list = Array.from(connectedUsers.values());
-  list.push({ name: poetBot.botName, socketId: poetBot.botId });
-  res.json(list);
+  res.json(getUsersWithPoetBot());
 });
 
 app.get('/api/messages', (req, res) => {
@@ -75,7 +79,7 @@ io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
 
   // Send current users and messages to new connection
-  socket.emit('users', [...Array.from(connectedUsers.values()), { name: poetBot.botName, socketId: poetBot.botId }]);
+  socket.emit('users', getUsersWithPoetBot());
   socket.emit('messages', messages);
 
   // Handle user joining
@@ -154,16 +158,6 @@ io.on('connection', (socket) => {
       emitUsersWithPoetBot();
       console.log(`${user.name} left the chat`);
     }
-  });
-});
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
-    timestamp: new Date().toISOString(),
-    connectedUsers: connectedUsers.size,
-    totalMessages: messages.length
   });
 });
 
